@@ -4,9 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@lapr5-019-uzlkx.mongodb.net/test?retryWrites=true&w=majority', {
-    useMongoClient: true
-});
+mongoose.connect('mongodb+srv://admin:lapr5-019@lapr5-019-uzlkx.mongodb.net/test?retryWrites=true&w=majority');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,11 +22,14 @@ app.use((req, res, next) => {
     next();
 });
 
-//Routes which should handle requests
+//Handling Routes
+const routes = require('./routes');
+routes.setRoutes(app);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found!');
     error.status = 404;
     next(error);
 })
+
 module.exports = app;
