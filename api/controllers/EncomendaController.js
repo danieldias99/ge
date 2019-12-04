@@ -26,10 +26,6 @@ class EncomendaController {
             .then(docs => {
                 console.log(docs);
                 if (docs.length >= 0) {
-                    for (const enc of docs) {
-                        const clienteAss = ClienteService.getByID(enc.nr_idCivil);
-                        enc.NomeCliente = clienteAss.nome;
-                    }
                     res.status(200).json(docs);
                 } else {
                     res.status(404).json({
@@ -51,7 +47,7 @@ class EncomendaController {
                     res.status(200).json(docs);
                 } else {
                     res.status(404).json({
-                        message: 'No entries found'
+                        response: 'No entries found'
                     });
                 }
             })
@@ -59,6 +55,21 @@ class EncomendaController {
                 console.log(err);
                 res.status(500).json({ error: err });
             });
+    }
+
+    async cancelarEncomenda(req, res) {
+        this.service.cancelarEncomenda(req.body.nomeCliente, req.body.data_pedido)
+            .then(docs => {
+                console.log(docs);
+                res.status(200).json({
+                    response: "Encomenda Cancelada!"
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ error: err });
+            });
+
     }
 }
 

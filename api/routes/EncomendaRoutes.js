@@ -15,4 +15,8 @@ router.get('/cliente/:clienteID', (req, res, next) => {
     EncomendaController.getAllCliente(req, res);
 });
 
+router.patch('/', (req, res, next) => {
+    EncomendaController.cancelarEncomenda(req, res);
+});
+
 module.exports = router;

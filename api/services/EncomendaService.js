@@ -14,8 +14,14 @@ class EncomendaService {
         return this.repository.getAll();
     }
 
-    async getAllCliente(nomeCliente){
+    async getAllCliente(nomeCliente) {
         return this.repository.getAllCliente(nomeCliente);
+    }
+
+    async cancelarEncomenda(nomeCliente_tosearch, data_pedido_tosearch) {
+        console.log(nomeCliente_tosearch);
+        console.log(data_pedido_tosearch);
+        return this.repository.updateEstado(nomeCliente_tosearch, data_pedido_tosearch);
     }
 
 }
