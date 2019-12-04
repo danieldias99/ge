@@ -8,7 +8,7 @@ class ClienteRepository {
     }
 
     async getAll() {
-        return this.model.find();
+        return this.model.find({}, { '_id': false });
     }
 
     async create(toCreate) {
@@ -32,6 +32,10 @@ class ClienteRepository {
         user.save();
 
         cliente.save();
+    }
+
+    async getByNr_idCivil(nr_idCivil_toseach) {
+        return this.model.find({ nr_idCivil: nr_idCivil_toseach }, { '_id': false });
     }
 }
 

@@ -13,6 +13,6 @@ const clienteSchema = new Schema({
     cod_postal: String
 });
 
-clienteSchema.plugin(idvalidator);
+//clienteSchema.plugin(idvalidator);
 
 module.exports = mongoose.model('Cliente', clienteSchema);

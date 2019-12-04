@@ -13,6 +13,10 @@ class ClienteService {
     async insert(body) {
         return this.repository.create(body);
     }
+
+    async getByID(nr_idCivil){
+        return this.repository.getByNr_idCivil(nr_idCivil);
+    }
 }
 
 
