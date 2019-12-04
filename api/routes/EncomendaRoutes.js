@@ -7,4 +7,12 @@ router.post('/', (req, res, next) => {
     EncomendaController.insert(req, res);
 });
 
+router.get('/', (req, res, next) => {
+    EncomendaController.getAll(res);
+});
+
+router.get('/cliente/:clienteID', (req, res, next) => {
+    EncomendaController.getAllCliente(req, res);
+});
+
 module.exports = router;

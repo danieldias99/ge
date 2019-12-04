@@ -10,6 +10,14 @@ class EncomendaService {
         return this.repository.create(body);
     }
 
+    async getAll() {
+        return this.repository.getAll();
+    }
+
+    async getAllCliente(nomeCliente){
+        return this.repository.getAllCliente(nomeCliente);
+    }
+
 }
 
 module.exports = new EncomendaService(EncomendaRepository);
