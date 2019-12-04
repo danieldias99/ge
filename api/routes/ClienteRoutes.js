@@ -15,4 +15,8 @@ router.get('/:clienteID', (req, res, next) => {
     ClienteController.getByID(req, res);
 });
 
+router.patch('/:clienteID', (req, res, next) => {
+    ClienteController.update(req, res);
+});
+
 module.exports = router;

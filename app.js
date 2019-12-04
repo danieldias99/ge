@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://admin:lapr5-019@lapr5-019-uzlkx.mongodb.net/test?retryWrites=true&w=majority');
+//mongoose.connection.dropDatabase()
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));

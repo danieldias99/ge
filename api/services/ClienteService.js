@@ -17,6 +17,10 @@ class ClienteService {
     async getByID(nr_idCivil){
         return this.repository.getByNr_idCivil(nr_idCivil);
     }
+
+    async update(nr_idCivil, body){
+        return this.repository.update(nr_idCivil, body);
+    }
 }
 
 

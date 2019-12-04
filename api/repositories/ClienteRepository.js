@@ -12,24 +12,18 @@ class ClienteRepository {
     }
 
     async create(toCreate) {
-        const user = new User({
+        const cliente = new Cliente({
+            nr_idCivil: toCreate.nr_idCivil,
             nome: toCreate.nome,
             email: toCreate.email,
-            password: toCreate.password,
-            isAdmin: toCreate.isAdmin
-        });
-
-        const cliente = new Cliente({
-            user: user,
-            nr_idCivil: toCreate.nr_idCivil,
             nr_telemovel: toCreate.nr_telemovel,
+            password: toCreate.password,
             metodo_pagamento: toCreate.metodo_pagamento,
             modo_entrega: toCreate.modo_entrega,
             morada: toCreate.morada,
-            cod_postal: toCreate.cod_postal
+            cod_postal: toCreate.cod_postal,
+            isAdmin: toCreate.isAdmin
         });
-
-        user.save();
 
         cliente.save();
     }
@@ -37,6 +31,11 @@ class ClienteRepository {
     async getByNr_idCivil(nr_idCivil_toseach) {
         return this.model.find({ nr_idCivil: nr_idCivil_toseach }, { '_id': false });
     }
+
+    async update(nr_idCivil_toseach, body) {
+        return this.model.findOneAndUpdate({ nr_idCivil: nr_idCivil_toseach }, { nome: body.nome, email: body.email });
+    }
+
 }
 
 module.exports = new ClienteRepository(Cliente);
