@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
-var idvalidator = require('mongoose-id-validator');
 
 const Schema = mongoose.Schema;
 
 const clienteSchema = new Schema({
-    //user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     nr_idCivil: Number,
     nome: String,
     email: String,
@@ -16,7 +14,5 @@ const clienteSchema = new Schema({
     cod_postal: String,
     isAdmin: Boolean
 });
-
-//clienteSchema.plugin(idvalidator);
 
 module.exports = mongoose.model('Cliente', clienteSchema);

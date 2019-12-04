@@ -23,5 +23,4 @@ class ClienteService {
     }
 }
 
-
 module.exports = new ClienteService(ClienteRepository);
