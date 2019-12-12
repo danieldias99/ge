@@ -40,7 +40,7 @@ class EncomendaController {
     }
 
     async getAllCliente(req, res) {
-        this.service.getAllCliente(req.params.clienteID)
+        this.service.getAllCliente(req.body.email)
             .then(docs => {
                 console.log(docs);
                 if (docs.length >= 0) {
@@ -58,11 +58,26 @@ class EncomendaController {
     }
 
     async cancelarEncomenda(req, res) {
-        this.service.cancelarEncomenda(req.body.nomeCliente, req.body.data_pedido)
+        this.service.cancelarEncomenda(req.body)
             .then(docs => {
                 console.log(docs);
                 res.status(200).json({
                     response: "Encomenda Cancelada!"
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ error: err });
+            });
+
+    }
+
+    async alterarEncomenda(req, res) {
+        this.service.alterarEncomenda(req.body)
+            .then(docs => {
+                console.log(docs);
+                res.status(200).json({
+                    response: "Encomenda Atualiazada!"
                 });
             })
             .catch(err => {

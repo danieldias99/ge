@@ -14,16 +14,17 @@ class EncomendaService {
         return this.repository.getAll();
     }
 
-    async getAllCliente(nomeCliente) {
-        return this.repository.getAllCliente(nomeCliente);
+    async getAllCliente(email) {
+        return this.repository.getAllCliente(email);
     }
 
-    async cancelarEncomenda(nomeCliente_tosearch, data_pedido_tosearch) {
-        console.log(nomeCliente_tosearch);
-        console.log(data_pedido_tosearch);
-        return this.repository.updateEstado(nomeCliente_tosearch, data_pedido_tosearch);
+    async cancelarEncomenda(body) {
+        return this.repository.updateEstado(body);
     }
 
+    async alterarEncomenda(body) {
+        return this.repository.updateAll(body);
+    }
 }
 
 module.exports = new EncomendaService(EncomendaRepository);
