@@ -1,4 +1,5 @@
 const Cliente = require('./../models/cliente');
+var bcrypt = require('bcrypt');
 
 class ClienteRepository {
 
@@ -16,7 +17,7 @@ class ClienteRepository {
             nome: toCreate.nome,
             email: toCreate.email,
             nr_telemovel: toCreate.nr_telemovel,
-            password: toCreate.password,
+            password: bcrypt.hashSync(toCreate.password, 8),
             metodo_pagamento: toCreate.metodo_pagamento,
             modo_entrega: toCreate.modo_entrega,
             morada: toCreate.morada,
@@ -27,12 +28,16 @@ class ClienteRepository {
         cliente.save();
     }
 
-    async getByNr_idCivil(nr_idCivil_toseach) {
-        return this.model.find({ nr_idCivil: nr_idCivil_toseach }, { '_id': false });
+    async getByEmail(email) {
+        return this.model.findOne({ email: email }, { '_id': false });
     }
 
-    async update(nr_idCivil_toseach, body) {
-        return this.model.findOneAndUpdate({ nr_idCivil: nr_idCivil_toseach }, { nome: body.nome, email: body.email });
+    async signIn(email_toseach) {
+        return this.model.findOne({ email: email_toseach }, { '_id': false });
+    }
+
+    async update(body) {
+        return this.model.findOneAndUpdate({ email: body.email }, { nome: body.nome, email: body.email });
     }
 
 }

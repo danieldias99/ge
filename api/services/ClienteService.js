@@ -14,12 +14,16 @@ class ClienteService {
         return this.repository.create(body);
     }
 
-    async getByID(nr_idCivil){
-        return this.repository.getByNr_idCivil(nr_idCivil);
+    async getByID(email) {
+        return this.repository.getByEmail(email);
     }
 
-    async update(nr_idCivil, body){
-        return this.repository.update(nr_idCivil, body);
+    async signIn(body) {
+        return this.repository.signIn(body.email);
+    }
+
+    async update(body) {
+        return this.repository.update(body);
     }
 }
 
