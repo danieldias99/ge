@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "9c4d66dc-6f89-4e9d-8959-a9341485190d",
+		"name": "Encomenda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Encomenda",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE2NzI1MSwiZXhwIjoxNTc2MjUzNjUxfQ.OEXWaQbVaBv5eaWdkZeb3yGw1EpRjozIdio36YS3fgk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"cliente\": \"afa@gmail.com\",\r\n   \"produtos\": [\r\n        { \"nomeProduto\": \"Garfo\",\r\n          \"quantidade\": 5\r\n        },\r\n        { \"nomeProduto\": \"Faca\",\r\n          \"quantidade\": 3\r\n        }\r\n    ],\r\n    \"data_entrega\": \"12/12/2020\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/encomenda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"encomenda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Encomendas de um cliente",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE2NzI1MSwiZXhwIjoxNTc2MjUzNjUxfQ.OEXWaQbVaBv5eaWdkZeb3yGw1EpRjozIdio36YS3fgk",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"email\": \"afa@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/encomenda/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"encomenda",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancelar Encomenda",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE2NzI1MSwiZXhwIjoxNTc2MjUzNjUxfQ.OEXWaQbVaBv5eaWdkZeb3yGw1EpRjozIdio36YS3fgk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"_id\": \"5df269bfb2868c154020d73f\",\r\n\t\"email\": \"admin@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/encomenda/cancelar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"encomenda",
+						"cancelar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar Encomenda",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE2NzI1MSwiZXhwIjoxNTc2MjUzNjUxfQ.OEXWaQbVaBv5eaWdkZeb3yGw1EpRjozIdio36YS3fgk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"_id\": \"5df269bfb2868c154020d73f\",\r\n\t\"email\": \"admin@gmail.com\",\r\n\t\"produtos\": [\r\n        { \"nomeProduto\": \"Garfo\",\r\n          \"quantidade\": 5\r\n        },\r\n        { \"nomeProduto\": \"Faca\",\r\n          \"quantidade\": 3\r\n        }\r\n    ],\r\n\t\"data_entrega\": \"16/12/2019\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/encomenda/alterar?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"encomenda",
+						"alterar"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"admin@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/encomenda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"encomenda"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
