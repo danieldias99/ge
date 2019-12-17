@@ -6,7 +6,92 @@
 	},
 	"item": [
 		{
-			"name": "SignIn",
+			"name": "Post Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "06a819e5-67a7-4c78-b7a9-b94151a67cf4",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});",
+							"",
+							"pm.globals.set(\"EMAIL_CLIENTE\", \"afa@gmail.com\");",
+							"pm.globals.set(\"PASS_CLIENTE\", \"123\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nr_idCivil\": 123456798, \r\n\t\"nome\": \"Armando Silva\",\r\n\t\"email\": \"afa@gmail.com\",\r\n\t\"nr_telemovel\": \"91000000\",\r\n\t\"password\": \"123\",\r\n\t\"metodo_pagamento\": \"dinheiro\",\r\n\t\"modo_entrega\": \"loja\",\r\n\t\"morada\": \"Travessa da Fábrica\",\r\n\t\"cod_postal\": \"4000-400\",\r\n\t\"isAdmin\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignIn Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "059fba72-17ab-41cf-996b-5c37a05047f4",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});",
+							"",
+							"pm.globals.set(\"TOKEN\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -19,7 +104,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"afa@gmail.com\",\n\t\"password\": \"afa123#\"\n}",
+					"raw": "{\n\t\"email\": \"{{EMAIL_CLIENTE}}\",\n\t\"password\": \"{{PASS_CLIENTE}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -43,26 +128,25 @@
 			"response": []
 		},
 		{
-			"name": "Post Cliente",
+			"name": "Alterar Cliente",
 			"request": {
-				"method": "POST",
+				"method": "PATCH",
 				"header": [
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					},
 					{
-						"key": "",
-						"value": "",
+						"key": "x-access-token",
 						"type": "text",
-						"disabled": true
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE1NjkzMSwiZXhwIjoxNTc2MjQzMzMxfQ._iU8hB0B_8I8rh2xbNeuSgPzH0xurpFdtQSQRoz-4sY"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"nr_idCivil\": 123456710, \r\n\t\"nome\": \"Daniel Cacheira Dias\",\r\n\t\"email\": \"daniel@gmail.com\",\r\n\t\"nr_telemovel\": \"91000000\",\r\n\t\"password\": \"123\",\r\n\t\"metodo_pagamento\": \"dinheiro\",\r\n\t\"modo_entrega\": \"loja\",\r\n\t\"morada\": \"Travessa da Fábrica\",\r\n\t\"cod_postal\": \"4000-400\",\r\n\t\"isAdmin\": false\r\n}",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n\t\"oldEmail\": \"afa@gmail.com\",\r\n\t\"nomeNew\": \"Antonio Alves\",\r\n\t\"emailNew\": \"aa@gmail.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,7 +154,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/cliente",
+					"raw": "http://localhost:5000/api/cliente/updateCliente",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -78,24 +162,23 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"cliente"
+						"cliente",
+						"updateCliente"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Cliente",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Consultar Cliente",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
-						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE1NjkzMSwiZXhwIjoxNTc2MjQzMzMxfQ._iU8hB0B_8I8rh2xbNeuSgPzH0xurpFdtQSQRoz-4sY",
-						"type": "text"
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
 					},
 					{
 						"key": "Content-Type",
@@ -106,7 +189,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"afa@gmail.com\"\n}",
+					"raw": "{\n\t\"token\": \"{{TOKEN}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -114,7 +197,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/cliente/cliente/?",
+					"raw": "http://localhost:5000/api/cliente/getUser?",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -123,8 +206,7 @@
 					"path": [
 						"api",
 						"cliente",
-						"cliente",
-						""
+						"getUser"
 					],
 					"query": [
 						{
@@ -138,7 +220,117 @@
 			"response": []
 		},
 		{
-			"name": "Update Cliente",
+			"name": "SignIn Configurador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "059fba72-17ab-41cf-996b-5c37a05047f4",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});",
+							"",
+							"pm.globals.set(\"TOKEN\", jsonData.token);",
+							"pm.globals.set(\"EMAIL_CLIENTE\", \"admin@gmail.com\");",
+							"pm.globals.set(\"PASS_CLIENTE\", \"123\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/cliente/signIn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"cliente",
+						"signIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Configurador",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"{{TOKEN}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/cliente/getUser?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"cliente",
+						"getUser"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "afa@gmail.com",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar Cliente Configurador",
 			"request": {
 				"method": "PATCH",
 				"header": [
@@ -156,7 +348,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"nome\": \"Antonio Alves\",\r\n\t\"email\": \"afa@gmail.com\"\r\n}",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n\t\"oldEmail\": \"aa@gmail.com\",\r\n\t\"nomeNew\": \"Antonio Alves\",\r\n\t\"emailNew\": \"afa@gmail.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -164,7 +356,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/cliente/cliente",
+					"raw": "http://localhost:5000/api/cliente/updateCliente",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -173,24 +365,22 @@
 					"path": [
 						"api",
 						"cliente",
-						"cliente"
+						"updateCliente"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Cliente",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Consultar Cliente Alterado",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
-						"key": "x-access-token",
+						"key": "",
+						"value": "",
 						"type": "text",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE1OTQxNSwiZXhwIjoxNTc2MjQ1ODE1fQ.ih7pVlZZOxbVNC1JFPX1NnSMPXsv6LvzNEeBPcPavjU"
+						"disabled": true
 					},
 					{
 						"key": "Content-Type",
@@ -201,7 +391,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"afa@gmail.com\"\n}",
+					"raw": "{\n\t\"token\": \"{{TOKEN}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -209,7 +399,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/cliente/cliente?",
+					"raw": "http://localhost:5000/api/cliente/getUser?",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -218,7 +408,7 @@
 					"path": [
 						"api",
 						"cliente",
-						"cliente"
+						"getUser"
 					],
 					"query": [
 						{
@@ -233,11 +423,8 @@
 		},
 		{
 			"name": "Get All Clientes",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "x-access-token",
@@ -253,7 +440,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"admin@gmail.com\"\n}",
+					"raw": "{\n\t\"token\": \"{{TOKEN}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -261,7 +448,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/cliente",
+					"raw": "http://localhost:5000/api/cliente/getUsers",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -269,7 +456,8 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"cliente"
+						"cliente",
+						"getUsers"
 					]
 				}
 			},
