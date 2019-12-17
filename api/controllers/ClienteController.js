@@ -35,7 +35,7 @@ class ClienteController {
     }
 
     async getByID(req, res) {
-        this.service.getByID(req.body.email)
+        this.service.getByID(req.body.user)
             .then(doc => {
                 console.log(doc);
                 if (doc) {
@@ -52,6 +52,19 @@ class ClienteController {
 
     async update(req, res) {
         this.service.update(req.body)
+            .then(result => {
+                res.status(200).json(result);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+    }
+
+    async updateCliente(req, res) {
+        this.service.updateCliente(req.body)
             .then(result => {
                 res.status(200).json(result);
             })

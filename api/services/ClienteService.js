@@ -15,6 +15,7 @@ class ClienteService {
     }
 
     async getByID(email) {
+        console.log(email);
         return this.repository.getByEmail(email);
     }
 
@@ -24,6 +25,10 @@ class ClienteService {
 
     async update(body) {
         return this.repository.update(body);
+    }
+
+    async updateCliente(body) {
+        return this.repository.updateCliente(body);
     }
 }
 

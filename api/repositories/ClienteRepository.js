@@ -37,7 +37,11 @@ class ClienteRepository {
     }
 
     async update(body) {
-        return this.model.findOneAndUpdate({ email: body.email }, { nome: body.nome, email: body.email });
+        return this.model.findOneAndUpdate({ email: body.user }, { nome: body.nomeNew, email: body.emailNew });
+    }
+
+    async updateCliente(body) {
+        return this.model.findOneAndUpdate({ email: body.oldEmail }, { nome: body.nomeNew, email: body.emailNew });
     }
 
 }
