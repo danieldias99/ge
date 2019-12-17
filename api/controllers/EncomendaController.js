@@ -8,9 +8,10 @@ class EncomendaController {
     }
 
     async insert(req, res) {
+        console.log(req.body);
         this.service.insert(req.body)
             .then(result => {
-                console.log(result);
+                console.log("Encomenda" + result);
                 res.status(201).json({
                     response: "Encomenda enviada para preparação!"
                 });
@@ -40,11 +41,30 @@ class EncomendaController {
     }
 
     async getAllCliente(req, res) {
-        this.service.getAllCliente(req.body.email)
+        this.service.getAllCliente(req.body.user)
             .then(docs => {
                 console.log(docs);
                 if (docs.length >= 0) {
                     res.status(200).json(docs);
+                } else {
+                    res.status(404).json({
+                        response: 'No entries found'
+                    });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ error: err });
+            });
+    }
+
+    async getEncomenda(req, res) {
+        console.log(req.body._id);
+        this.service.getEncomenda(req.body._id)
+            .then(doc => {
+                console.log(doc);
+                if (doc) {
+                    res.status(200).json(doc);
                 } else {
                     res.status(404).json({
                         response: 'No entries found'
@@ -69,7 +89,20 @@ class EncomendaController {
                 console.log(err);
                 res.status(500).json({ error: err });
             });
+    }
 
+    async pedidoCancelarEncomenda(req, res) {
+        this.service.pedidoCancelarEncomenda(req.body)
+            .then(docs => {
+                console.log(docs);
+                res.status(200).json({
+                    response: "Encomenda Cancelada!"
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ error: err });
+            });
     }
 
     async alterarEncomenda(req, res) {

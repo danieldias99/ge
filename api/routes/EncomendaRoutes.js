@@ -6,49 +6,65 @@ const VerifyToken = require('../Middleware/VerifyToken');
 const EncomendaController = require('./../controllers/EncomendaController');
 
 router.post('/', (req, res, next) => {
-    authorization.isCliente(req.body.cliente, 'cliente', res, function (decision) {
+    VerifyToken.verifyToken(req, res, next);
+    authorization.isCliente(req.body.user, 'cliente', res, function (decision) {
         if (!decision) {
             return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         } else {
-            VerifyToken.verifyToken(req, res, next);
             EncomendaController.insert(req, res);
         }
     });
 });
 
-router.get('/', (req, res, next) => {
-    authorization.isAdmin(req.body.email, 'administrator', res, function (decision) {
+router.post('/getEncomendas', (req, res, next) => {
+    VerifyToken.verifyToken(req, res, next);
+    authorization.isAdmin(req.body.user, 'administrator', res, function (decision) {
         if (!decision) {
             return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         } else {
-            VerifyToken.verifyToken(req, res, next);
             EncomendaController.getAll(res);
         }
     });
 });
 
-router.get('/cliente', (req, res, next) => {
+router.post('/getEncomendasCliente', (req, res, next) => {
     VerifyToken.verifyToken(req, res, next);
     EncomendaController.getAllCliente(req, res);
 });
 
+router.post('/getEncomenda', (req, res, next) => {
+    VerifyToken.verifyToken(req, res, next);
+    EncomendaController.getEncomenda(req, res);
+});
+
 router.patch('/cancelar', (req, res, next) => {
-    authorization.isAdmin(req.body.email, 'administrator', res, function (decision) {
+    VerifyToken.verifyToken(req, res, next);
+    authorization.isAdmin(req.body.user, 'administrator', res, function (decision) {
         if (!decision) {
             return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         } else {
-            VerifyToken.verifyToken(req, res, next);
             EncomendaController.cancelarEncomenda(req, res);
         }
     });
 });
 
-router.patch('/alterar', (req, res, next) => {
-    authorization.isAdmin(req.body.email, 'administrator', res, function (decision) {
+router.patch('/pedido-cancelar', (req, res, next) => {
+    VerifyToken.verifyToken(req, res, next);
+    authorization.isCliente(req.body.user, 'cliente', res, function (decision) {
         if (!decision) {
             return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         } else {
-            VerifyToken.verifyToken(req, res, next);
+            EncomendaController.pedidoCancelarEncomenda(req, res);
+        }
+    });
+});
+
+router.patch('/alterar', (req, res, next) => {
+    VerifyToken.verifyToken(req, res, next);
+    authorization.isAdmin(req.body.user, 'administrator', res, function (decision) {
+        if (!decision) {
+            return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
+        } else {
             EncomendaController.alterarEncomenda(req, res);
         }
     });

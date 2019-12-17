@@ -18,8 +18,16 @@ class EncomendaService {
         return this.repository.getAllCliente(email);
     }
 
+    async getEncomenda(id) {
+        return this.repository.getById(id);
+    }
+
     async cancelarEncomenda(body) {
         return this.repository.updateEstado(body);
+    }
+
+    async pedidoCancelarEncomenda(body) {
+        return this.repository.pedidoCancelar(body);
     }
 
     async alterarEncomenda(body) {

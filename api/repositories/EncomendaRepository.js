@@ -8,28 +8,39 @@ class EncomendaRepository {
 
     async create(toCreate) {
         const encomenda = new Encomenda({
-            cliente: toCreate.cliente,
+            cliente: toCreate.user,
             produtos: toCreate.produtos,
             data_entrega: toCreate.data_entrega
         });
+
+        console.log(encomenda);
         encomenda.save();
     }
 
     async getAll() {
-        return this.model.find({}, { 'produtos._id': false });
+        return this.model.find({});
     }
 
     async getAllCliente(email_tosearch) {
-        return this.model.find({ cliente: email_tosearch }, { 'produtos._id': false });
+        return this.model.find({ cliente: email_tosearch });
+    }
+
+    async getById(id) {
+        return this.model.findOne({ _id: id });
     }
 
     async updateEstado(toUpdate) {
         return this.model.findOneAndUpdate({ _id: toUpdate._id }, { estado: 'cancelado' });
     }
 
+    async pedidoCancelar(toUpdate) {
+        return this.model.findOneAndUpdate({ _id: toUpdate._id }, { estado: 'A cancelar...' });
+    }
+
     async updateAll(toUpdate) {
         return this.model.findOneAndUpdate({ _id: toUpdate._id }, {
             produtos: toUpdate.produtos,
+            estado: toUpdate.estado,
             data_entrega: toUpdate.data_entrega
         });
     }

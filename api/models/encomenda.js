@@ -7,7 +7,7 @@ const encomendaSchema = new Schema({
     produtos: [
         {
             nomeProduto: String,
-            quantidade: Number
+            quantidade: String
         }
     ],
     data_entrega: String,
