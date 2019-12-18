@@ -3,8 +3,9 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const config = require('./config');
 
-mongoose.connect('mongodb+srv://admin:lapr5-019@lapr5-019-uzlkx.mongodb.net/test?retryWrites=true&w=majority');
+mongoose.connect(config.mongo_connect_url);
 //mongoose.connection.dropDatabase()
 
 app.use(morgan('dev'));
