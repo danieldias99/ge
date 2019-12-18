@@ -6,7 +6,87 @@
 	},
 	"item": [
 		{
+			"name": "SignIn Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "059fba72-17ab-41cf-996b-5c37a05047f4",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});",
+							"",
+							"pm.globals.set(\"TOKEN\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"{{EMAIL_CLIENTE}}\",\n\t\"password\": \"{{PASS_CLIENTE}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/cliente/signIn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"cliente",
+						"signIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Encomenda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9982496c-45c3-40fe-971c-42a772105a17",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});",
+							"",
+							"pm.globals.set(\"EMAIL_CLIENTE\", \"afa@gmail.com\");",
+							"pm.globals.set(\"PASS_CLIENTE\", \"123\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -17,14 +97,15 @@
 						"value": "application/json"
 					},
 					{
-						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE2NzI1MSwiZXhwIjoxNTc2MjUzNjUxfQ.OEXWaQbVaBv5eaWdkZeb3yGw1EpRjozIdio36YS3fgk",
-						"type": "text"
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"cliente\": \"afa@gmail.com\",\r\n   \"produtos\": [\r\n        { \"nomeProduto\": \"Garfo\",\r\n          \"quantidade\": 5\r\n        },\r\n        { \"nomeProduto\": \"Faca\",\r\n          \"quantidade\": 3\r\n        }\r\n    ],\r\n    \"data_entrega\": \"12/12/2020\"\r\n}",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n    \"cliente\": \"afa@gmail.com\",\r\n    \"produtos\": [\r\n        { \"nomeProduto\": \"Colher\",\r\n          \"quantidade\": 5\r\n        },\r\n        { \"nomeProduto\": \"Faca\",\r\n          \"quantidade\": 3\r\n        }\r\n    ],\r\n    \"data_entrega\": \"12/12/2020\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -48,16 +129,225 @@
 		},
 		{
 			"name": "Get Encomendas de um cliente",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc851f9e-9315-4a39-a4f2-e88e48a198a1",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200\", function(){",
+							"    pm.expect(jsonData.statusCode) == 200;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
-						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE2NzI1MSwiZXhwIjoxNTc2MjUzNjUxfQ.OEXWaQbVaBv5eaWdkZeb3yGw1EpRjozIdio36YS3fgk",
-						"type": "text"
+						"key": "",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/encomenda/getEncomendasCliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"encomenda",
+						"getEncomendasCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedido Cancelar Encomenda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc34ff5c-a8c7-4e76-bae0-84a31e949650",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200\", function(){",
+							"    pm.expect(jsonData.statusCode) == 200;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n\t\"_id\": \"5df8fe1290235840b8880bb4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/encomenda/pedido-cancelar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"encomenda",
+						"pedido-cancelar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignIn Configurador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "059fba72-17ab-41cf-996b-5c37a05047f4",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});",
+							"",
+							"pm.globals.set(\"TOKEN\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"{{EMAIL_CONF}}\",\n\t\"password\": \"{{PASS_CONF}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/cliente/signIn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"cliente",
+						"signIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Encomendas",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "eacf3b04-b2eb-45d7-a726-57b571879ec0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ebb157f-161d-4d28-9c48-262e4dc8f73d",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200\", function(){",
+							"    pm.expect(jsonData.statusCode) == 200;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
 					},
 					{
 						"key": "Content-Type",
@@ -68,7 +358,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"email\": \"afa@gmail.com\"\r\n}",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -76,7 +366,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/encomenda/cliente",
+					"raw": "http://localhost:5000/api/encomenda/getEncomendas",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -85,7 +375,7 @@
 					"path": [
 						"api",
 						"encomenda",
-						"cliente"
+						"getEncomendas"
 					]
 				}
 			},
@@ -93,6 +383,25 @@
 		},
 		{
 			"name": "Cancelar Encomenda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc34ff5c-a8c7-4e76-bae0-84a31e949650",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200\", function(){",
+							"    pm.expect(jsonData.statusCode) == 200;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [
@@ -103,14 +412,15 @@
 						"type": "text"
 					},
 					{
-						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE2NzI1MSwiZXhwIjoxNTc2MjUzNjUxfQ.OEXWaQbVaBv5eaWdkZeb3yGw1EpRjozIdio36YS3fgk",
-						"type": "text"
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"_id\": \"5df269bfb2868c154020d73f\",\r\n\t\"email\": \"admin@gmail.com\"\r\n}",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n\t\"_id\": \"5df8fe1290235840b8880bb4\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -135,6 +445,25 @@
 		},
 		{
 			"name": "Alterar Encomenda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b472faa-17cf-4492-ba72-e38cc40bc106",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200\", function(){",
+							"    pm.expect(jsonData.statusCode) == 200;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [
@@ -145,14 +474,15 @@
 						"type": "text"
 					},
 					{
-						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWZhQGdtYWlsLmNvbSIsImlhdCI6MTU3NjE2NzI1MSwiZXhwIjoxNTc2MjUzNjUxfQ.OEXWaQbVaBv5eaWdkZeb3yGw1EpRjozIdio36YS3fgk",
-						"type": "text"
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"_id\": \"5df269bfb2868c154020d73f\",\r\n\t\"email\": \"admin@gmail.com\",\r\n\t\"produtos\": [\r\n        { \"nomeProduto\": \"Garfo\",\r\n          \"quantidade\": 5\r\n        },\r\n        { \"nomeProduto\": \"Faca\",\r\n          \"quantidade\": 3\r\n        }\r\n    ],\r\n\t\"data_entrega\": \"16/12/2019\"\r\n}",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n\t\"_id\": \"5df8fe1290235840b8880bb4\",\r\n\t\"email\": \"admin@gmail.com\",\r\n\t\"produtos\": [\r\n        { \"nomeProduto\": \"Garfo\",\r\n          \"quantidade\": 5\r\n        },\r\n        { \"nomeProduto\": \"Faca\",\r\n          \"quantidade\": 3\r\n        }\r\n    ],\r\n\t\"data_entrega\": \"16/12/2019\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -177,45 +507,6 @@
 							"value": "",
 							"disabled": true
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"email\": \"admin@gmail.com\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/encomenda",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"encomenda"
 					]
 				}
 			},
