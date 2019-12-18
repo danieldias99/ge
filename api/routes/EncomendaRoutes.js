@@ -29,6 +29,7 @@ router.post('/getEncomendas', (req, res, next) => {
 
 router.post('/getEncomendasCliente', (req, res, next) => {
     VerifyToken.verifyToken(req, res, next);
+    console.log(req.body.user);
     EncomendaController.getAllCliente(req, res);
 });
 

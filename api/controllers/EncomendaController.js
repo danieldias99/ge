@@ -11,7 +11,6 @@ class EncomendaController {
         console.log(req.body);
         this.service.insert(req.body)
             .then(result => {
-                console.log("Encomenda" + result);
                 res.status(201).json({
                     response: "Encomenda enviada para preparação!"
                 });

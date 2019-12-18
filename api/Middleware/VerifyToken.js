@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const config  = require('../../config');
 
 module.exports = {
     verifyToken: function (req, res, next) {
@@ -7,7 +8,7 @@ module.exports = {
             console.log("No Token");
             return res.status(403).json({ auth: false, message: 'No token provided' });
         }
-        jwt.verify(token, 'TheSecret_123456789', function (err, decoded) {
+        jwt.verify(token, config.secret_key, function (err, decoded) {
             if (err) {
                 console.log("Wrong token");
                 return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });

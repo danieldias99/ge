@@ -1,6 +1,7 @@
 const ClienteService = require("./../services/ClienteService");
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
+const config = require('../../config');
 
 class ClienteController {
 
@@ -84,7 +85,7 @@ class ClienteController {
                         return res.status(401).send({ auth: false, token: null, message: 'Auth failed.' });
                     } else {
                         const payload = { user: user.email };
-                        var theToken = jwt.sign(payload, 'TheSecret_123456789', { expiresIn: 86400 });
+                        var theToken = jwt.sign(payload, config.secret_key, { expiresIn: 86400 });
                         res.json({ success: true, message: 'Token', token: theToken });
                     }
                 }
