@@ -20,7 +20,7 @@ pipelines: # We set up all the pipeline or actions beneath
       - step:
           name: Create artifact
           script:
-            - tar czfv application.tgz ./*.* src/
+            - tar czfv application.tgz ./*.* api/
           artifacts:
             - application.tgz
       - step:
