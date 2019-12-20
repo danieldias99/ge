@@ -33,6 +33,10 @@ class EncomendaService {
     async alterarEncomenda(body) {
         return this.repository.updateAll(body);
     }
+
+    async getProdutosMaisVezesEncomendados() {
+        return this.repository.getProdutosMaisVezesEncomendados();
+    }
 }
 
 module.exports = new EncomendaService(EncomendaRepository);

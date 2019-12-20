@@ -116,7 +116,18 @@ class EncomendaController {
                 console.log(err);
                 res.status(500).json({ error: err });
             });
+    }
 
+    getProdutosMaisVezesEncomendados(res) {
+        return this.service.getProdutosMaisVezesEncomendados()
+            .then(docs => {
+                console.log(docs);
+                res.status(200).json(docs);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ error: err });
+            });
     }
 }
 
