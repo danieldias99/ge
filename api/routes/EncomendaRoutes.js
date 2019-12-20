@@ -72,6 +72,7 @@ router.patch('/alterar', (req, res, next) => {
 });
 
 router.post('/produtosMaisVezesEncomendados', (req, res, next) => {
+    VerifyToken.verifyToken(req, res, next);
     EncomendaController.getProdutosMaisVezesEncomendados(res);
 })
 
