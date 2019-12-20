@@ -105,7 +105,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n    \"cliente\": \"afa@gmail.com\",\r\n    \"produtos\": [\r\n        { \"nomeProduto\": \"Colher\",\r\n          \"quantidade\": 5\r\n        },\r\n        { \"nomeProduto\": \"Faca\",\r\n          \"quantidade\": 3\r\n        }\r\n    ],\r\n    \"data_entrega\": \"12/12/2020\"\r\n}",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n    \"cliente\": \"daniel@gmail.com\",\r\n    \"produtos\": [\r\n        { \"nomeProduto\": \"Produto1\",\r\n          \"quantidade\": 5\r\n        },\r\n        { \"nomeProduto\": \"Faca\",\r\n          \"quantidade\": 3\r\n        }\r\n    ],\r\n    \"data_entrega\": \"12/12/2020\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -246,6 +246,62 @@
 						"api",
 						"encomenda",
 						"pedido-cancelar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produtos mais vezes encomendados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a37a68e2-da7a-4b55-940c-23779bcd1b69",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200\", function(){",
+							"    pm.expect(jsonData.statusCode) == 200;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"{{TOKEN}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/encomenda/produtosMaisVezesEncomendados",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"encomenda",
+						"produtosMaisVezesEncomendados"
 					]
 				}
 			},
