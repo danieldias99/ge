@@ -129,6 +129,18 @@ class EncomendaController {
                 res.status(500).json({ error: err });
             });
     }
+
+    getProdutosMaisEncomendados(res) {
+        return this.service.getProdutosMaisEncomendados()
+            .then(docs => {
+                console.log(docs);
+                res.status(200).json(docs);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({ error: err });
+            });
+    }
 }
 
 module.exports = new EncomendaController(EncomendaService);

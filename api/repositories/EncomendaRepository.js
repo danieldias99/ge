@@ -86,6 +86,37 @@ class EncomendaRepository {
         return count;
     }
 
+    async getProdutosMaisEncomendados() {
+        var _data = [];
+        var encomendas = await this.getAll();
+        encomendas.forEach(encomenda => {
+            encomenda.produtos.forEach(produto => {
+                if (this.produtoNaoAvaliado(_data, produto.nomeProduto)) {
+                    var cont = this.contaProdutoEncomendas(encomendas, produto.nomeProduto);
+                    var element = {
+                        nomeProduto: produto.nomeProduto,
+                        total: cont
+                    }
+                    _data.push(element);
+                }
+            });
+        });
+        _data.sort((a, b) => b.total - a.total);
+        return _data;
+    }
+
+    contaProdutoEncomendas(encomendas, nomeProduto) {
+        var count = 0;
+        for (var i = 0; i < encomendas.length; i++) {
+            var produtos = encomendas[i].produtos;
+            for (var j = 0; j < produtos.length; j++) {
+                if (produtos[j].nomeProduto === nomeProduto) {
+                    count = count + parseInt(produtos[j].quantidade);
+                }
+            }
+        }
+        return count;
+    }
 }
 
 module.exports = new EncomendaRepository(Encomenda);

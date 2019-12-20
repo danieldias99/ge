@@ -37,6 +37,10 @@ class EncomendaService {
     async getProdutosMaisVezesEncomendados() {
         return this.repository.getProdutosMaisVezesEncomendados();
     }
+
+    async getProdutosMaisEncomendados() {
+        return this.repository.getProdutosMaisEncomendados();
+    }
 }
 
 module.exports = new EncomendaService(EncomendaRepository);
