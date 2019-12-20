@@ -77,6 +77,7 @@ router.post('/produtosMaisVezesEncomendados', (req, res, next) => {
 });
 
 router.post('/produtosMaisEncomendados', (req, res, next) => {
+    VerifyToken.verifyToken(req, res, next);
     EncomendaController.getProdutosMaisEncomendados(res);
 });
 
