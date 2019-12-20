@@ -308,6 +308,62 @@
 			"response": []
 		},
 		{
+			"name": "Produtos mais encomendados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a37a68e2-da7a-4b55-940c-23779bcd1b69",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200\", function(){",
+							"    pm.expect(jsonData.statusCode) == 200;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\": \"{{TOKEN}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/encomenda/produtosMaisEncomendados",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"encomenda",
+						"produtosMaisEncomendados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "SignIn Configurador",
 			"event": [
 				{
