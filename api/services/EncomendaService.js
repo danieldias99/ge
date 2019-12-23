@@ -41,6 +41,10 @@ class EncomendaService {
     async getProdutosMaisEncomendados() {
         return this.repository.getProdutosMaisEncomendados();
     }
+
+    async getProdutosMenorTempoProducao(){
+        return this.repository.getProdutosMenorTempoProducao();
+    }
 }
 
 module.exports = new EncomendaService(EncomendaRepository);

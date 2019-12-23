@@ -134,6 +134,23 @@ class EncomendaRepository {
             });
         });
     }
+
+    async getProdutosMenorTempoProducao() {
+        var _data = [];
+        let request_produtos = this.getProdutos();
+        let response = await request_produtos;
+        let array_produtos = response;
+        array_produtos.forEach(produto => {
+            let element = {
+                id_produto: produto.id,
+                tempo_fabrico: produto.planofabrico.tempo_fabrico
+            };
+            _data.push(element);
+        });
+        _data.sort((a, b) => a.tempo_fabrico - b.tempo_fabrico);
+        return _data;
+    }
+
 }
 
 module.exports = new EncomendaRepository(Encomenda);

@@ -29,7 +29,6 @@ router.post('/getEncomendas', (req, res, next) => {
 
 router.post('/getEncomendasCliente', (req, res, next) => {
     VerifyToken.verifyToken(req, res, next);
-    console.log(req.body.user);
     EncomendaController.getAllCliente(req, res);
 });
 
@@ -62,13 +61,7 @@ router.patch('/pedido-cancelar', (req, res, next) => {
 
 router.patch('/alterar', (req, res, next) => {
     VerifyToken.verifyToken(req, res, next);
-    authorization.isAdmin(req.body.user, 'administrator', res, function (decision) {
-        if (!decision) {
-            return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
-        } else {
-            EncomendaController.alterarEncomenda(req, res);
-        }
-    });
+    EncomendaController.alterarEncomenda(req, res);
 });
 
 router.post('/produtosMaisVezesEncomendados', (req, res, next) => {
@@ -79,6 +72,11 @@ router.post('/produtosMaisVezesEncomendados', (req, res, next) => {
 router.post('/produtosMaisEncomendados', (req, res, next) => {
     VerifyToken.verifyToken(req, res, next);
     EncomendaController.getProdutosMaisEncomendados(res);
+});
+
+router.post('/produtosMenorTempoProducao', (req, res, next) => {
+    VerifyToken.verifyToken(req, res, next);
+    EncomendaController.getProdutosMenorTempoProducao(res);
 });
 
 module.exports = router;
