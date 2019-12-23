@@ -1,4 +1,7 @@
 const Encomenda = require('./../models/encomenda');
+const request = require('request');
+
+const config = require('../../config');
 
 class EncomendaRepository {
 
@@ -116,6 +119,20 @@ class EncomendaRepository {
             }
         }
         return count;
+    }
+
+    getProdutos() {
+        return new Promise((resolve, reject) => {
+            request.get(config.mdp_url + '/api/Produto', (error, response, body) => {
+
+                let array_produtos = JSON.parse(body);
+                resolve(array_produtos);
+
+                response.on('error', (error) => {
+                    reject(error);
+                });
+            });
+        });
     }
 }
 
