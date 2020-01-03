@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authorization = require('../Middleware/Authorization');
 const VerifyToken = require('../Middleware/VerifyToken');
+const acl = require('../Middleware/AutorizacoesAcl');
 
 const EncomendaController = require('./../controllers/EncomendaController');
 
@@ -19,6 +20,7 @@ router.post('/', (req, res, next) => {
 router.post('/getEncomendas', (req, res, next) => {
     VerifyToken.verifyToken(req, res, next);
     acl.isAllowed(req.body.user, 'encomendas', 'consultar', function (err, resp) {
+        console.log(resp);
         if (resp) {
             EncomendaController.getAll(res);
         } else if (err) {
