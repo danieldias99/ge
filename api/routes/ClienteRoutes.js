@@ -11,7 +11,7 @@ router.post('/getUsers', (req, res, next) => {
     acl.isAllowed(req.body.user, 'clientes', 'consultar', function (err, resp) {
         if (resp) {
             ClienteController.getAll(res);
-        } else if (err) {
+        } else if (err|| !resp) {
             return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         }
     });
@@ -36,7 +36,7 @@ router.post('/getUser', (req, res, next) => {
     acl.isAllowed(req.body.user, 'cliente', 'consultar', function (err, resp) {
         if (resp) {
             ClienteController.getByID(req, res);
-        } else if (err) {
+        } else if (err|| !resp) {
             return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         }
     });
@@ -47,7 +47,7 @@ router.patch('/', (req, res, next) => {
     acl.isAllowed(req.body.user, 'cliente', 'alterar', function (err, resp) {
         if (resp) {
             ClienteController.update(req, res);
-        } else if (err) {
+        } else if (err|| !resp) {
             return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         }
     });
@@ -58,11 +58,12 @@ router.patch('/updateCliente', (req, res, next) => {
     acl.isAllowed(req.body.user, 'cliente', 'alterar', function (err, resp) {
         if (resp) {
             ClienteController.updateCliente(req, res);
-        } else if (err) {
+        } else if (err|| !resp) {
             return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         }
     });
 });
+
 
 router.post('/signIn', (req, res, next) => {
     ClienteController.signIn(req, res);
