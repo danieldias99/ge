@@ -13,7 +13,8 @@ async function set_roles() {
                 { resources: 'clientes', permissions: 'consultar' },
                 { resources: 'cliente', permissions: ['consultar', 'apagar', 'alterar'] },
                 { resources: 'encomenda', permissions: ['consultar', 'cancelar', 'alterar'] },
-                { resources: 'stats', permissions: ['consultar'] }
+                { resources: 'stats', permissions: ['consultar'] },
+                { resources: 'configuracao', permissions: ['adicionar', 'consultar', 'remover'] }
             ]
         },
         {
