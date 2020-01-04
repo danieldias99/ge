@@ -12,7 +12,7 @@ router.post('/getUsers', (req, res, next) => {
         if (resp) {
             ClienteController.getAll(res);
         } else if (err|| !resp) {
-            return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
+            res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         }
     });
 });
@@ -37,7 +37,7 @@ router.post('/getUser', (req, res, next) => {
         if (resp) {
             ClienteController.getByID(req, res);
         } else if (err|| !resp) {
-            return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
+            res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         }
     });
 });
@@ -48,7 +48,7 @@ router.patch('/', (req, res, next) => {
         if (resp) {
             ClienteController.update(req, res);
         } else if (err|| !resp) {
-            return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
+            res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         }
     });
 });
@@ -59,7 +59,7 @@ router.patch('/updateCliente', (req, res, next) => {
         if (resp) {
             ClienteController.updateCliente(req, res);
         } else if (err|| !resp) {
-            return res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
+            res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
         }
     });
 });

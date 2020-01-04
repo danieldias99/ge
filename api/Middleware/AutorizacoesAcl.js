@@ -1,9 +1,10 @@
-var node_acl = require('acl');
-var acl = new node_acl(new node_acl.memoryBackend());
+const node_acl = require('acl');
+const acl = new node_acl(new node_acl.memoryBackend());
+const ClienteRepository = require('./../repositories/ClienteRepository');
 
 set_roles();
 
-function set_roles() {
+async function set_roles() {
     acl.allow([
         {
             roles: 'admin',
@@ -24,6 +25,19 @@ function set_roles() {
             ]
         }
     ]);
+
+
+    var clientes = await ClienteRepository.getAll()
+    clientes.forEach(cliente => {
+        if (cliente.isAdmin) {
+            acl.addUserRoles(cliente.email, 'admin');
+        } else {
+            acl.addUserRoles(cliente.email, 'client');
+        }
+        acl.userRoles(cliente.email, function (err, roles) {
+            console.log(roles);
+        });
+    });
 }
 
 module.exports = acl;
