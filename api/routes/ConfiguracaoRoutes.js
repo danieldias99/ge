@@ -6,7 +6,12 @@ const acl = require('../Middleware/AutorizacoesAcl');
 const controller = require('../controllers/ConfiguracaoController');
 
 router.post('/addConf', (req, res, next) => {
-    VerifyToken.verifyToken(req, res, next);
+    var message;
+    message = VerifyToken.verifyToken(req, message);
+    console.log(message);
+    if (message) {
+        return res.status(403).json({ auth: false, message: message });
+    }
     acl.isAllowed(req.body.user, 'configuracao', 'adicionar', function (err, resp) {
         if (resp) {
             controller.add(req, res);
@@ -17,7 +22,11 @@ router.post('/addConf', (req, res, next) => {
 });
 
 router.delete('/remConf', (req, res, next) => {
-    VerifyToken.verifyToken(req, res, next);
+    var message;
+    message = VerifyToken.verifyToken(req, message);
+    if (message) {
+        return res.status(403).json({ auth: false, message: message });
+    }
     acl.isAllowed(req.body.user, 'configuracao', 'remover', function (err, resp) {
         if (resp) {
             controller.rem(req, res);
@@ -28,7 +37,11 @@ router.delete('/remConf', (req, res, next) => {
 });
 
 router.get('/fetchConf', (req, res, next) => {
-    VerifyToken.verifyToken(req, res, next);
+    var message;
+    message = VerifyToken.verifyToken(req);
+    if (message) {
+        return res.status(403).json({ auth: false, message: message });
+    }
     acl.isAllowed(req.body.user, 'configuracao', 'consultar', function (err, resp) {
         if (resp) {
             controller.fetch(res);
