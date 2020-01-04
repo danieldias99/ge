@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config  = require('../../config');
+const config = require('../../config');
 
 module.exports = {
     verifyToken: function (req, res, next) {
@@ -11,7 +11,8 @@ module.exports = {
         jwt.verify(token, config.secret_key, function (err, decoded) {
             if (err) {
                 console.log("Wrong token");
-                return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+                console.log(token);
+                return res.status(403).json({ auth: false, message: 'Failed to authenticate token.' }).send();
             }
             req.body.user = decoded.user;
             //console.log(req.body.user);
