@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "4a6bf77f-5311-4c15-a4f8-07ea71b1ce5f",
+		"name": "AclAuth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SignIn Configurador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "059fba72-17ab-41cf-996b-5c37a05047f4",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});",
+							"",
+							"pm.globals.set(\"TOKEN\", jsonData.token);",
+							"pm.globals.set(\"EMAIL_CLIENTE\", \"admin@gmail.com\");",
+							"pm.globals.set(\"PASS_CLIENTE\", \"123\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/cliente/signIn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"cliente",
+						"signIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adicionar Premissão",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a67638c2-a8e7-4733-8806-4280f37abab8",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n\t\"role\": \"admin\",\r\n\t\"resources\": \"testeR\",\r\n\t\"permissons\": [\r\n\t\t\"testeP1\",\r\n\t\t\"testeP2\"\r\n\t]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/config/addConf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"config",
+						"addConf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Premissões",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21d403c9-78aa-445a-991b-062828761551",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/config/fetchConf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"config",
+						"fetchConf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remover Premissão",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a27e826-e696-4b3b-a1cf-36f2058bfaf2",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\",\r\n\t\"role\": \"admin\",\r\n\t\"resources\": \"testeR\",\r\n\t\"permissons\": [\r\n\t\t\"testeP2\"\r\n\t]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/config/remConf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"config",
+						"remConf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Premissões",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68d6738d-a1d4-46e9-8fee-28c582655255",
+						"exec": [
+							"pm.test(\"Content-Type is JSON\", function (){",
+							"    pm.response.headers[\"Content-Type\"] == \"application/json\"",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200 - SignIn\", function(){",
+							"    pm.expect(jsonData.statusCode) == 201;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"token\": \"{{TOKEN}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/config/fetchConf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"config",
+						"fetchConf"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
