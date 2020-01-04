@@ -57,13 +57,13 @@ class EncomendaRepository {
                     var cont = this.contaEncomendasProduto(encomendas, produto.nomeProduto);
                     var element = {
                         nomeProduto: produto.nomeProduto,
-                        total_encomendas: cont
+                        stati: cont
                     }
                     _data.push(element);
                 }
             });
         });
-        _data.sort((a, b) => b.total_encomendas - a.total_encomendas);
+        _data.sort((a, b) => b.stati - a.stati);
         return _data;
     }
 
@@ -98,13 +98,13 @@ class EncomendaRepository {
                     var cont = this.contaProdutoEncomendas(encomendas, produto.nomeProduto);
                     var element = {
                         nomeProduto: produto.nomeProduto,
-                        total: cont
+                        stati: cont
                     }
                     _data.push(element);
                 }
             });
         });
-        _data.sort((a, b) => b.total - a.total);
+        _data.sort((a, b) => b.stati - a.stati);
         return _data;
     }
 
@@ -143,11 +143,11 @@ class EncomendaRepository {
         array_produtos.forEach(produto => {
             let element = {
                 id_produto: produto.id,
-                tempo_fabrico: produto.planofabrico.tempo_fabrico
+                stati: produto.planofabrico.tempo_fabrico
             };
             _data.push(element);
         });
-        _data.sort((a, b) => a.tempo_fabrico - b.tempo_fabrico);
+        _data.sort((a, b) => a.stati - b.stati);
         return _data;
     }
 
