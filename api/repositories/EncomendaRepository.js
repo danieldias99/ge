@@ -140,9 +140,10 @@ class EncomendaRepository {
         let request_produtos = this.getProdutos();
         let response = await request_produtos;
         let array_produtos = response;
+        console.log(array_produtos);
         array_produtos.forEach(produto => {
             let element = {
-                id_produto: produto.id,
+                nomeProduto: produto.nomeProduto,
                 stati: produto.planofabrico.tempo_fabrico
             };
             _data.push(element);
