@@ -16,4 +16,16 @@ router.post('/addConf', (req, res, next) => {
     });
 });
 
+router.delete('/remConf', (req, res, next) => {
+    VerifyToken.verifyToken(req, res, next);
+    acl.isAllowed(req.body.user, 'configuracao', 'remover', function (err, resp) {
+        if (resp) {
+            controller.rem(req, res);
+        } else if (err || !resp) {
+            res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
+        }
+    });
+});
+
+
 module.exports = router;
