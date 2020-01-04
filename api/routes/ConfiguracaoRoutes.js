@@ -27,5 +27,15 @@ router.delete('/remConf', (req, res, next) => {
     });
 });
 
+router.get('/fetchConf', (req, res, next) => {
+    VerifyToken.verifyToken(req, res, next);
+    acl.isAllowed(req.body.user, 'configuracao', 'consultar', function (err, resp) {
+        if (resp) {
+            controller.fetch(res);
+        } else if (err || !resp) {
+            res.status(403).json({ auth: false, message: 'Sem autorização para este serviço' });
+        }
+    });
+});
 
 module.exports = router;
