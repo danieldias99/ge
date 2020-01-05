@@ -36,7 +36,7 @@ router.delete('/remConf', (req, res, next) => {
     });
 });
 
-router.get('/fetchConf', (req, res, next) => {
+router.post('/fetchConf', (req, res, next) => {
     var message;
     message = VerifyToken.verifyToken(req);
     if (message) {
