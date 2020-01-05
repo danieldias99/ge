@@ -21,7 +21,7 @@ router.post('/addConf', (req, res, next) => {
     });
 });
 
-router.delete('/remConf', (req, res, next) => {
+router.post('/remConf', (req, res, next) => {
     var message;
     message = VerifyToken.verifyToken(req, message);
     if (message) {
